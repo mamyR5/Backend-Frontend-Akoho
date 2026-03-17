@@ -1,0 +1,187 @@
+<div class="w-full">
+
+    <!-- En-tête -->
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h3 class="text-xl font-semibold text-white">Situation des lots</h3>
+            @if (!isLoading() && !error()) {
+            <p class="text-gray-500 text-sm mt-1">{{ situations().length }}
+                lot(s) enregistré(s)</p>
+            }
+        </div>
+
+        <!-- Input date -->
+        <div
+            class="flex items-center gap-2 px-4 py-2 bg-[#0D1117] border border-white/10 rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 text-yellow-400"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <input type="date"
+                [value]="selectedDate()"
+                (change)="onDateChange($event)"
+                class="bg-transparent border-none outline-none text-gray-300 text-sm cursor-pointer [color-scheme:dark]" />
+        </div>
+    </div>
+
+    <!-- Loader -->
+    @if (isLoading()) {
+    <div class="py-16 text-center text-gray-600 text-sm">Chargement...</div>
+    }
+
+    <!-- Erreur -->
+    @if (error()) {
+    <div class="py-16 text-center text-red-400 text-sm">{{ errorMessage()
+        }}</div>
+    }
+
+    <!-- Tableau -->
+    @if (!isLoading() && !error()) {
+    <div class="overflow-x-auto">
+        <div
+            class="bg-[#080A10]/60 border border-white/5 rounded-2xl overflow-x-auto backdrop-blur-sm shadow-xl">
+            <table class="w-full min-w-[700px]">
+                <thead>
+                    <tr class="border-b border-white/5">
+                        <th
+                            class="px-6 py-4 text-left   text-xs font-medium text-gray-500 uppercase tracking-wider">Num.
+                            Lot</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">Nb.
+                            Volailles</th>
+                        <th
+                            class="px-6 py-4 text-left   text-xs font-medium text-gray-500 uppercase tracking-wider">Nb. Akoho Maty</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">Prix
+                            Achat Init.</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">Prix
+                            Alim.</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">Pondaison Max.</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">Prix
+                            Vente</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">Nb.
+                            Atody</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Perte Atody</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Recette</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Dépense</th>
+                        <th
+                            class="px-6 py-4 text-right  text-xs font-medium text-gray-500 uppercase tracking-wider">Bénéfice</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (lot of situations(); track lot.idLot) {
+                    <tr
+                        class="border-b border-white/5 hover:bg-white/3 transition-colors duration-150">
+                        <td class="px-6 py-4 text-sm text-white font-medium">{{
+                            lot.idLot }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-300">{{
+                            formatNumber(lot.NbAkohoTotal) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-300">{{
+                            formatNumber(lot.NbAkohoMatyTotal) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-300">{{
+                            formatPrix(lot.PrixAchat) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-300">{{
+                            formatPrix(lot.PrixSakafoTotal) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-300">{{
+                            formatNumber(lot.NbPondaisonMax) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-yellow-400 font-semibold">{{
+                            formatPrix(lot.PrixVenteTotal) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-300">{{
+                            formatNumber(lot.NbAtodyTotal) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-red-400">{{
+                            formatPrix(lot.PerteAtody) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right" 
+                            [class.text-emerald-400]="lot.Recette>=0"
+                            [class.text-red-400]="lot.Recette<0" >{{
+                            formatPrix(lot.Recette) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-white-400">{{
+                            formatPrix(lot.Depense) }}</td>
+                        <td class="px-6 py-4 text-sm text-right font-semibold"
+                            [class.text-emerald-400]="lot.Benefice >= 0"
+                            [class.text-red-400]="lot.Benefice < 0">
+                            {{ formatBenefice(lot.Benefice) }}
+                        </td>
+                    </tr>
+                    }
+
+                    @if(situations().length>0){
+                    <!-- Ligne total -->
+                    <tr
+                        class="bg-yellow-400/[0.03] border-t border-yellow-400/10">
+                        <td
+                            class="px-6 py-4 text-xs text-gray-500 uppercase tracking-wider">Total</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-yellow-400 font-bold">{{
+                            formatNumber(totalVolailles()) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-yellow-400 font-bold">{{
+                            formatNumber(totalAkohoMaty()) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-400">{{
+                            formatPrix(totalPrixAchat()) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-400">{{
+                            formatPrix(totalPrixAlim()) }}</td>
+                        <td class="px-6 py-4"></td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-yellow-400 font-bold">{{
+                            formatPrix(totalPrixVente()) }}</td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-yellow-400 font-bold">{{
+                            formatNumber(totalNbAtody()) }}</td>
+                        <td class="px-6 py-4 text-sm text-right font-bold text-red-400">
+                            {{ formatPrix(totalPerteAtody()) }}
+                        </td>
+                         <td class="px-6 py-4 text-sm text-right font-bold" 
+                         [class.text-emerald-400]="totalRecette()>=0"
+                         [class.text-red-400]="totalRecette()<0">
+                            {{ formatPrix(totalRecette()) }}
+                        </td>
+                        <td
+                            class="px-6 py-4 text-sm text-right text-gray-400">{{
+                            formatPrix(totalDepense()) }}</td>
+                        <td class="px-6 py-4 text-sm text-right font-bold"
+                            [class.text-emerald-400]="totalBenefice() >= 0"
+                            [class.text-red-400]="totalBenefice() < 0">
+                            {{ formatBenefice(totalBenefice()) }}
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+
+            <!-- État vide -->
+            @if (situations().length === 0) {
+                <div class="py-16 text-center text-gray-600 text-sm">
+                    Aucune donnée pour cette date.
+                </div>
+            }
+        </div>
+    </div>
+    }
+</div>

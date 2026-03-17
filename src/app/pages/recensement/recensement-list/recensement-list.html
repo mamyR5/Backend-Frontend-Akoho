@@ -1,0 +1,66 @@
+<div>
+
+  <!-- En-tête -->
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h3 class="text-xl font-semibold text-white">Liste des recensements</h3>
+      @if(!isLoading()){
+        <p class="text-gray-500 text-sm mt-1">{{ recensements().length }} recensement(s) enregistré(s)</p>
+      }
+      
+    </div>
+    <a [routerLink]="routeAdd"
+       class="flex items-center gap-2 px-4 py-2 bg-gold-400 hover:bg-gold-300 text-black font-semibold text-sm rounded-xl transition-all duration-200 shadow-[0_0_15px_rgba(250,204,21,0.2)]">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+      </svg>
+      Nouveau recensement
+    </a>
+  </div>
+
+  <!-- Tableau -->
+  <div class="bg-space-950/60 border border-white/5 rounded-2xl overflow-hidden backdrop-blur-sm shadow-xl">
+    <table class="w-full">
+      <thead>
+        <tr class="border-b border-white/5">
+          <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NUM.</th>
+          <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre d'oeuf(s)</th>
+          <th class="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Lot</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (recensement of recensements(); track recensement.id) {
+          <tr class="border-b border-white/5 hover:bg-white/3 transition-colors duration-150 group">
+
+            <td class="px-6 py-4 text-xs  text-gray-600">{{ recensement.id }}</td>
+
+            <td class="px-6 py-4 text-sm text-gray-300">{{ dateFormat(recensement.dateRecensement) }}</td>
+
+            <td class="px-6 py-4 text-sm text-right text-gray-300">
+                {{ recensement.nbAtody }}
+            </td>
+
+            <td class="px-6 py-4 text-left text-sm text-white font-medium">
+              {{ recensement.idLot }}
+            </td>
+
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    @if(isLoading()){
+      <div class="py-16 text-center text-gray-600 text-sm">
+        Chargement...
+      </div>
+    }
+
+    <!-- État vide -->
+    @else if (recensements().length === 0) {
+      <div class="py-16 text-center text-gray-600 text-sm">
+        Aucun recensement enregistré pour le moment.
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Largeur et hauteur */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;   /* ← scrollbar horizontale */
+}
+
+
+/* Le curseur */
+::-webkit-scrollbar-thumb {
+    /*background: rgba(250, 204, 21, 0.3);   /* gold semi-transparent */
+    @apply bg-gold-400;
+}
+
+/* Hover sur le curseur */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gold-500;
+}
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+    /* Couleurs space */
+  --color-space-950: #050505;
+  --color-space-900: #0a0a0f;
+  --color-space-800: #13131f;
+  /* Couleurs gold */
+  --color-gold-400: #FACC15;
+  --color-gold-500: #EAB308;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-VariableFont.ttf') format('truetype-variations');
+  font-weight: 100 900; /* <--- C'est ici la magie : de 100 à 900 */
+  font-style: normal;
+}
+
+/* Configuration globale */
+body {
+    @apply bg-space-900 text-gray-300 font-sans;
+}
+
+/* Customisation de la barre de défilement pour qu'elle soit jolie */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    @apply bg-space-950;
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-space-800 rounded border border-gray-700;
+}

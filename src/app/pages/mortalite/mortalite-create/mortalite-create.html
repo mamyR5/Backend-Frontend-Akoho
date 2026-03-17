@@ -1,0 +1,127 @@
+<div class="max-w-2xl mx-auto">
+
+    <!-- En-tête -->
+    <div class="mb-8">
+        <h3 class="text-xl font-semibold text-white">Nouveau cas de mortalité</h3>
+        <p class="text-gray-500 text-sm mt-1">Enregistrer un nouveau cas mortalité de volaille(s)</p>
+    </div>
+
+    <!-- Carte formulaire -->
+    <div
+        class="bg-space-950/60 border border-white/5 rounded-2xl p-8 backdrop-blur-sm shadow-xl">
+
+        <!-- Message succès -->
+        @if (successMessage()) {
+        <div
+            class="mb-6 flex items-center gap-3 px-4 py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M5 13l4 4L19 7" />
+            </svg>
+            {{ successMessage() }}
+        </div>
+        }
+            @if (error()) {
+        <div
+            class="mb-6 flex items-center gap-3 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {{ errorMessage() }}
+        </div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+
+
+                <!-- Date de mortalité -->
+                <div class="flex flex-col gap-1.5">
+                    <label
+                        class="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        Date de mortalité <span class="text-gold-400">*</span>
+                    </label>
+                    <input type="date" formControlName="DateNahafatesana"
+                        class="bg-white/5 border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 transition-colors [color-scheme:dark]"
+                        [class.border-white/10]="!isInvalid('DateNahafatesana')"
+                        [class.focus:border-gold-400]="!isInvalid('DateNahafatesana')"
+                        [class.focus:ring-gold-400/20]="!isInvalid('DateNahafatesana')"
+                        [class.border-red-500/50]="isInvalid('DateNahafatesana')"
+                        [class.focus:ring-red-500/20]="isInvalid('DateNahafatesana')" />
+                    @if (isInvalid('DateNahafatesana')) {
+                    <span class="text-xs text-red-400">Ce champ est
+                        requis</span>
+                    }
+                </div>
+
+        
+                <!-- Nombre de volailles -->
+                <div class="flex flex-col gap-1.5">
+                    <label
+                        class="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        Nombre de volaille(s) <span class="text-gold-400">*</span>
+                    </label>
+                    <input type="number" formControlName="NbMaty"
+                        placeholder="Ex: 500"
+                        class="bg-white/5 border rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:ring-1 transition-colors"
+                        [class.border-white/10]="!isInvalid('NbMaty')"
+                        [class.focus:border-gold-400]="!isInvalid('NbMaty')"
+                        [class.focus:ring-gold-400/20]="!isInvalid('NbMaty')"
+                        [class.border-red-500/50]="isInvalid('NbMaty')"
+                        [class.focus:ring-red-500/20]="isInvalid('NbMaty')" />
+                    @if (isInvalid('NbMaty')) {
+                    <span class="text-xs text-red-400">Nombre requis (min.
+                        1)</span>
+                    }
+                </div>
+
+        
+
+            <!-- Lot -->
+            <div class="flex flex-col gap-1.5">
+                <label
+                    class="text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    Lot <span class="text-gold-400">*</span>
+                </label>
+                <app-select
+                    formControlName="idLot"
+                    placeholder="Sélectionner un lot"
+                    [options]="lots()"
+                    [invalid]="isInvalid('idLot')">
+                </app-select>
+            </div>
+
+
+            <!-- Bouton submit -->
+            <div class="pt-2">
+                <button type="submit" [disabled]="isSubmitting()"
+                    class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gold-400 hover:bg-gold-300 disabled:opacity-50 disabled:cursor-not-allowed text-black font-semibold text-sm rounded-xl transition-all duration-200 shadow-[0_0_20px_rgba(250,204,21,0.2)] hover:shadow-[0_0_25px_rgba(250,204,21,0.35)]">
+                    @if (isSubmitting()) {
+                    <svg class="animate-spin h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                            stroke="currentColor" stroke-width="4" />
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8v8z" />
+                    </svg>
+                    Enregistrement...
+                    } @else {
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 4v16m8-8H4" />
+                    </svg>
+                    Enregistrer le cas de mortalité
+                    }
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
