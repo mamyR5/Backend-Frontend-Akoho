@@ -1,0 +1,12 @@
+P
+
+Situation des lots
+3 lot(s) enregistré(s)
+
+
+17/03/2026
+Num. Lot	Nb. Volailles	Nb. Akoho Maty	Prix Achat Init.	Prix Alim.	Pondaison Max.	Prix Vente Akoho	Nb. Atody	Perte Atody	Recette	Dépense	Bénéfice
+1	485	15	250 000 Ar	4 927 946,429 Ar	19 150	6 776 142,857 Ar	0	0 Ar	6 776 142,857 Ar	5 177 946,429 Ar	+1 598 196,429 Ar
+2	100	0	0 Ar	37 500 Ar	2 200	120 750 Ar	0	0 Ar	120 750 Ar	37 500 Ar	+83 250 Ar
+3	150	0	0 Ar	0 Ar	3 320	18 607,143 Ar	0	0 Ar	18 607,143 Ar	0 Ar	+18 607,143 Ar
+Total	735	15	250 000 Ar	4 965 446,429 Ar		6 915 500 Ar	0	0 Ar	6 915 500 Ar	5 215 446,429 Ar	+1 700 053,571 Ar

@@ -1,0 +1,352 @@
+openapi: 3.0.0
+info:
+  title: API Akoho
+  version: 1.0.0
+  description: Documentation complète de l'API de gestion Akoho
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/lot:
+    get:
+      summary: Récupérer tous les lots
+      tags: [Lots]
+      responses:
+        '200':
+          description: Succès
+    post:
+      summary: Créer un lot
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lot'
+      responses:
+        '200':
+          description: Lot créé avec succès
+  /api/lot/{id}:
+    get:
+      summary: Récupérer un lot par ID
+      tags: [Lots]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+  /api/lot/situation/age:
+    post:
+      summary: Récupérer l'age en semaine par rapport à une date donnée.
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParamFiltre'
+      responses:
+        '200':
+          description:  Age en semaine reçu avec succès
+  /api/lot/situation/nbAkohoTotal:
+    post:
+      summary: Récupérer le nombre de Akoho total par rapport à une date donnée.
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParamFiltre'
+      responses:
+        '200':
+          description:  Nombre d'Akoho Total reçu avec succès
+  /api/lot/situation/variation:
+    post:
+      summary: Récupérer le poids moyen unitaire et sakafo par semaine unitaire par rapport à une date donnée.
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParamFiltre'
+      responses:
+        '200':
+          description:  Poids moyen unitaire et sakafo unitaire par semaine reçu avec succès
+  /api/lot/situationUnitaire/NbPondaisonMax:
+    post:
+      summary: Récupérer le nombre de pondaison maximum par rapport à une date donnée.
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParamFiltre'
+      responses:
+        '200':
+          description:  Nombre Pondaison Max d'un lot reçu avec succès
+  /api/lot/situationUnitaire/Perte:
+    post:
+      summary: Récupérer la perte en Ar par rapport à une date donnée.
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParamFiltre'
+      responses:
+        '200':
+          description:  Perte en Ar d'un lot reçu avec succès
+  /api/lot/situationUnitaire:
+    post:
+      summary: Récupérer la situation d'un lot par rapport à une date donnée.
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParamFiltre'
+      responses:
+        '200':
+          description:  Situation d'un lot reçu avec succès
+  /api/lot/situation:
+    post:
+      summary: Récupérer les situation des lot par rapport à une date donnée.
+      tags: [Lots]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - DateFiltre
+              properties:
+                DateFiltre:
+                 type: string
+                 format: date
+                 example: "2026-03-06"
+
+      responses:
+        '200':
+          description:  Situations des lots reçus avec succès
+  /api/etatAtody:
+    get:
+      summary: Récupérer tous les états Atody
+      tags: [Etat Atody]
+      responses:
+        '200':
+          description: Succès
+    post:
+      summary: Créer un état Atody
+      tags: [Etat Atody]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EtatAtody'
+      responses:
+        '200':
+          description: Etat Atody créé avec succès
+  /api/etatAtody/{id}:
+    post:
+      summary: Modifier un état Atody
+      tags: [Etat Atody]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EtatAtody'
+      responses:
+        '200':
+          description: Etat Atody modifié avec succès
+  /api/recensementAtody:
+    get:
+      summary: Récupérer tous les recensements Atody
+      tags: [Recensement Atody]
+      responses:
+        '200':
+          description: Succès
+    post:
+      summary: Créer un recensement Atody
+      tags: [Recensement Atody]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecensementAtody'
+      responses:
+        '200':
+          description: Recensement Atody créé avec succès
+  /api/incubation:
+    get:
+      summary: Récupérer tous les incubations
+      tags: [Incubation]
+      responses:
+        '200':
+          description: Succès
+    post:
+      summary: Créer une incubation
+      tags: [Incubation]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Incubation'
+      responses:
+        '200':
+          description: Incubation créée avec succès
+  /api/akohoMaty:
+    get:
+      summary: Récupérer tous les Akoho Maty
+      tags: [Akoho Maty]
+      responses:
+        '200':
+          description: Succès
+    post:
+      summary: Créer un lot d'Akoho Maty
+      tags: [Akoho Maty]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AkohoMaty'
+      responses:
+        '200':
+          description: Akoho Maty créé avec succès
+  /api/race:
+    get:
+      summary: Récupérer toutes les races de volailles
+      tags: [Race] 
+      responses:
+        '200':
+          description: Succès
+    post:
+      summary: Créer une race de volaille
+      tags: [Race]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Race'
+      responses:
+        '200':
+          description: Race créée avec succès
+  /api/race/{id}:
+    get:
+      summary: Récupérer une race par ID
+      tags: [Race]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+  /api/variation:
+    get:
+      summary: Récupérer toutes les variation de poids des races de volailles
+      tags: [Variation] 
+      responses:
+        '200':
+          description: Succès
+    post:
+      summary: Créer une variation de poids de race de volaille
+      tags: [Variation]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Variation'
+      responses:
+        '200':
+          description: Variation de poids créée avec succès
+
+components:
+  schemas:
+
+    ParamFiltre:
+      type: object
+      properties:
+        idLot:  {type: number}
+        DateFiltre: {type: string,format: date}
+
+    Race:
+      type: object
+      properties:
+        id: { type: integer }
+        Nom: { type: string }
+        PUSakafo: { type: number, format: decimal }
+        PrixVente: { type: number, format: decimal }
+        TempsIncubation: { type: integer }
+
+    Lot:
+      type: object
+      properties:
+        id: { type: integer }
+        DateCreation: { type: string, format: date }
+        AgeSemaine: { type: integer }
+        NbAkoho: { type: integer }
+        idRace: { type: integer }
+
+    Variation:
+      type: object
+      properties:
+        id: { type: integer }
+        AgeSemaine: { type: integer }
+        VariationPoids: { type: number, format: decimal }
+        idRace: { type: integer }
+        SakafoParSem: { type: number, format: decimal }
+
+    RecensementAtody:
+      type: object
+      properties:
+        id: { type: integer }
+        DateRecensement: { type: string, format: date }
+        NbAtody: { type: integer }
+        idLot: { type: integer }
+
+    EtatAtody:
+      type: object
+      properties:
+        id: { type: integer }
+        libelle: { type: string }
+
+    Incubation:
+      type: object
+      properties:
+        id: { type: integer }
+        DateIncubation: { type: string, format: date }
+        Nb: { type: integer }
+        idEtatAtody: { type: integer }
+        idLot: { type: integer }
+
+    AkohoMaty:
+      type: object
+      properties:
+        id: { type: integer }
+        DateNahafatesana: { type: string, format: date }
+        NbMaty: { type: integer }
+        idLot: { type: integer }
